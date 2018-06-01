@@ -6,6 +6,8 @@ function main() {
 
     var lock        = LockService.getScriptLock();
     lock.waitLock(50); // Lock this process
+    //どうしてもここでlock時間が長すぎるというエラーが出てしまう。
+    //しかし、lockを入れないと、呼び出し回数が多いと…
 
     var lastRow     = sheet.getLastRow();
     var lastColumn  = sheet.getLastColumn();
