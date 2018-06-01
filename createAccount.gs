@@ -1,11 +1,11 @@
 var MCIS = 'mc_is_log@aiesec.jp';
-var SHEETNAME = "フォームの回答 3";
+var SHEETNAME = "フォームの回答 4";
 
 function main() {
     var sheet       = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEETNAME);
 
-//    var lock        = LockService.getScriptLock();
-//    lock.waitLock(3000); // Lock this process
+    var lock        = LockService.getScriptLock();
+    lock.waitLock(50); // Lock this process
 
     var lastRow     = sheet.getLastRow();
     var lastColumn  = sheet.getLastColumn();
@@ -19,7 +19,7 @@ function main() {
         var body = JSON.stringify(rowData, null, 4);
         MailApp.sendEmail(MCIS, subject, body);
     }
-//    lock.releaseLock();
+    lock.releaseLock();
 }
 
 function insertUser(row) {
@@ -113,6 +113,7 @@ function mailInfo(name, account, pass, extEmail, chkEmail, lc, lcml, lcAdmin) {
         subject:    '【自動通知】新規グループメンバー',
         htmlBody:   body2
     });
+
 }
 
 String.prototype.capitalize = function() {
